@@ -21,6 +21,7 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "jade": "^1.11.0",
+    "method-override": "^2.3.6",
     "pg-promise": "^5.2.4",
     "sass": "^0.5.0",
     "sequelize": "^3.23.6"

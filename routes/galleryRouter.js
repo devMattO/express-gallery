@@ -25,6 +25,9 @@ Router.get('/', (req, res) => {
     });
   });
 });
+Router.get('/gallery/new/', (req, res) => {
+  return res.render('../templates/newPhotoForm');
+});
 
 Router.get('/gallery/:id', (req, res) => {
   db.Gallery.findById(req.params.id)
@@ -34,6 +37,18 @@ Router.get('/gallery/:id', (req, res) => {
     });
   })
   .catch ( err => {
+    return res.send({'success': false});
+  });
+});
+
+Router.get('/gallery/:id/edit', (req, res) => {
+  db.Gallery.findById(req.params.id)
+  .then( (data) => {
+    return res.render('../templates/editPhotoForm', {
+      pics: data.dataValues
+    });
+  })
+  .catch( err => {
     return res.send({'success': false});
   });
 });

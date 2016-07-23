@@ -1,9 +1,17 @@
-<!DOCTYPE html>
 include ./header.jade
 
-img(src='#{pics.link}')
-ul
-  li Author: #{pics.author}
-  li Description: #{pics.description}
-  li
-    a(href='#{pics.link}') Link
+div.single_pic_container
+  div.single_pic_div
+    img(src='#{pic.link}')
+    div.single_desc_div
+      img(id='cog_options' src='http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-business/076041-3d-transparent-glass-icon-business-gear8.png')
+      p #{pic.description}
+    div.option_buttons
+      button(id='edit_button') Edit
+      button(id='delete_button') Delete
+
+  div.sidebar_div
+    a(href='/gallery/#{pic1.id}')
+      img(src='#{pic1.link}')
+    a(href='/gallery/#{pic2.id}')
+      img(src='#{pic2.link}')

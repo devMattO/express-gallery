@@ -33,8 +33,13 @@ Router.get('/gallery/new/', (req, res) => {
 Router.get('/gallery/:id', (req, res) => {
   db.Gallery.findById(req.params.id)
   .then( (data) => {
-    return res.render('../templates/singlePhoto', {
-      pics: data.dataValues
+    db.Gallery.findAll()
+    .then( (allData) => {
+      return res.render('../templates/singlePhoto', {
+        pic: data,
+        pic1: allData[2],
+        pic2: allData[1]
+      });
     });
   })
   .catch ( err => {
@@ -81,3 +86,7 @@ Router.delete('/gallery/:id', (req, res) => {
 });
 
 module.exports = Router;
+
+// /    return res.render('../templates/singlePhoto', {
+//       pics: data.dataValues
+//     });

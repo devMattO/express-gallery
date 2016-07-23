@@ -5,7 +5,9 @@ head
   title Document
 body
   H1 Photo
+  img(src='#{pics.link}')
   ul
     li Author: #{pics.author}
-    li Link: #{pics.link}
     li Description: #{pics.description}
+    li
+      a(href='#{pics.link}') Link

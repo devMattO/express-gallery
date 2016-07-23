@@ -1,0 +1,43 @@
+@import 'partials/reset';
+@import 'partials/clearfix';
+$main_gray_color: #777;
+$main_font: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+
+#architekt_header{
+  font-size: 5em;
+  color: $main_gray_color;
+  font-family: $main_font;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 4%;
+}
+.architekt_div{
+  width:75%;
+}
+.text_header{
+  width: 25%;
+}
+
+a{
+  text-decoration: none;
+}
+#bs_text{
+  color: #999;
+  text-align: right;
+  font-family: $main_font;
+  font-size: 12px;
+  margin-right: 5%;
+  border-left: dashed 1px #999;
+  margin-top: 5%;
+  line-height: 1.5;
+  margin-left: 5%;
+  padding-left: 5%;
+}
+
+.header_div{
+  margin-top: 4%;
+  display: flex;
+  border-top: dashed 1px #999;
+  margin-right: 15%;
+  margin-left: 15%;
+}

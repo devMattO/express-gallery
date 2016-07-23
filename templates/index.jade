@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 html(lang="en")
 head
+  //- link(href='../public/css/styles.css' rel='stylesheet')
+  style
+    include ../public/css/styles.css
   meta(charset="UTF-8")
   title Document
 body
-  h1 Gallery
+  div.header_div
+    div.architekt_div
+      a(href='/')
+        h1(id='architekt_header') _ARCHITEKT
+    div.text_header
+      p(id='bs_text') Welcome to our online portfolio, we are small group of passionate designers and architects, looking to change and create amazing digital images to inspire others to follow in our innovate steps. Free Architect WordPress Theme
+  h3 Gallery
   ul
     each pic in pics
-      li Author: #{pic.author}
+      li Author: #{pic.dataValues.author}
       li Link: #{pic.link}
       li Description: #{pic.description}
       li

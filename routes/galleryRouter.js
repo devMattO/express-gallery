@@ -21,7 +21,8 @@ Router.get('/', (req, res) => {
   db.Gallery.findAll()
   .then ( (data) => {
     return res.render('../templates', {
-      pics: data
+      pics: data,
+      main_pic: data[1]
     });
   });
 });

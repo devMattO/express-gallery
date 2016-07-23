@@ -1,13 +1,9 @@
 <!DOCTYPE html>
-html(lang="en")
-head
-  meta(charset="UTF-8")
-  title Document
-body
-  H1 Photo
-  img(src='#{pics.link}')
-  ul
-    li Author: #{pics.author}
-    li Description: #{pics.description}
-    li
-      a(href='#{pics.link}') Link
+include ./header.jade
+
+img(src='#{pics.link}')
+ul
+  li Author: #{pics.author}
+  li Description: #{pics.description}
+  li
+    a(href='#{pics.link}') Link

@@ -95,3 +95,37 @@ a {
   border-top: dashed 1px #999;
   margin-right: 15%;
   margin-left: 15%; }
+
+.big_pic_container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%; }
+
+.line_separator {
+  margin-top: 5%;
+  border-top: dashed 1px #777;
+  margin-left: 15%;
+  margin-right: 15%; }
+
+.thumbnail_row_div {
+  display: flex;
+  margin-left: 15%;
+  margin-right: 15%;
+  flex-wrap: wrap;
+  margin-top: 5%;
+  justify-content: space-between;
+  box-sizing: border-box; }
+
+.thumb_img {
+  min-height: 17em;
+  max-height: 17em;
+  max-width: 100%; }
+
+.thumbnail {
+  width: 33%;
+  margin-bottom: 2%; }
+
+.thumbnail_desc {
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  color: #777;
+  text-align: center; }

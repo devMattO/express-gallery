@@ -10,7 +10,16 @@ Router.post('/gallery', (req, res) => {
       description: req.body.description
     })
   .then ( _ => {
-    return res.status(200).send({'success': true});
+    db.Gallery.findAll()
+    .then((data) => {
+      return res.render('index', {
+        pics: data,
+        main_pic: data[1]
+      });
+    })
+    .catch( err => {
+      return res.send({'success': false});
+    });
   })
   .catch( err => {
     return res.send({'success': false});
@@ -68,7 +77,16 @@ Router.put('/gallery/:id', (req, res) => {
     where: {id: req.params.id}
   })
   .then( _ => {
-    return res.status(200).send({'success': true});
+    db.Gallery.findAll()
+    .then((data) => {
+      return res.render('index', {
+        pics: data,
+        main_pic: data[1],
+      });
+    })
+    .catch( err => {
+      return res.send({'success': false});
+    });
   })
   .catch( err => {
     return res.send({'success': false});
@@ -78,7 +96,17 @@ Router.put('/gallery/:id', (req, res) => {
 Router.delete('/gallery/:id', (req, res) => {
   db.Gallery.destroy({ where: { id: req.params.id } })
   .then( _ => {
-  return res.status(200).send({'success': true});
+    db.Gallery.findAll()
+    .then((data) => {
+      console.log(data.length);
+      return res.render('index', {
+        pics: data,
+        main_pic: data[1],
+      });
+    })
+    .catch( err => {
+      return res.send({'success': false});
+    });
   })
   .catch( err => {
     return res.send({'success': false});

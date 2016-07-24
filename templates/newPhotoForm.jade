@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 html(lang="en")
   head
+    link(href='/css/styles.css' rel='stylesheet')
     meta(charset="UTF-8")
     title Add New Picture
   body
-    h1 Add New Picture, yo!
-    form(method="POST", action="/gallery")
-      div.input
-        span.label Author
-        input(type="text", name="author", placeholder="You")
-      div.input
-        span.label Link
-        input(type="text", name="link", placeholder="www.google.com")
-      div.input
-        span.label Description
-        input(type="text", name="description", placeholder="Describe the picture!")
-      div.actions
-        input(type="submit", value="Submit")
+    .form_container
+      h1.edit_form _NEW
+
+        form(method="POST", action="/gallery")
+          .input
+            span.label Author
+            input(type="text", name="author", placeholder="You")
+          .input
+            span.label Link
+            input(type="text", name="link", placeholder="www.google.com")
+          .input
+            span.label Description
+            input(type="text", name="description", placeholder="Describe the picture!")
+          .actions
+            input(type="submit", value="Submit")

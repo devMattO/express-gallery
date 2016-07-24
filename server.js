@@ -6,6 +6,7 @@ const Gallery = db.Gallery;
 const galleryRouter = require('./routes/galleryRouter');
 const methodOverride = require('method-override');
 
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 app.use(methodOverride(function(req, res){

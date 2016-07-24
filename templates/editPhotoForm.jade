@@ -1,15 +1,26 @@
-include ./header.jade
+//- include ./header.jade
+<!DOCTYPE html>
+html(lang="en")
+head
+  link(href='/css/styles.css' rel='stylesheet')
+  meta(charset="UTF-8")
+  title _Edit
+body
 
-form(method="POST", action="/gallery/#{pics.id}")
-  div.input
-    span.label Author
-    input(name="author" value="#{pics.author}")
-  div.input
-    span.label Link
-    input(name="link" value="#{pics.link}")
-  div.input
-    span.label Description
-    input(name="description" value="#{pics.description}")
-    input(type="hidden" name="_method" value="PUT")
-  div.actions
-    input(type="submit" value="Submit")
+
+.form_container
+  h1.edit_form _EDIT
+
+    form(method="POST", action="/gallery/#{pics.id}")
+      .input
+        span.label Author
+        input(name="author" value="#{pics.author}")
+      .input
+        span.label Link
+        input(name="link" value="#{pics.link}")
+      .input
+        span.label Description
+        input(name="description" value="#{pics.description}")
+        input(type="hidden" name="_method" value="PUT")
+      .actions
+        input(type="submit" value="Submit")

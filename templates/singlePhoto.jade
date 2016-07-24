@@ -7,11 +7,16 @@ div.single_pic_container
       img(id='cog_options' src='http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-business/076041-3d-transparent-glass-icon-business-gear8.png')
       p #{pic.description}
     div.option_buttons
-      button(id='edit_button') Edit
-      button(id='delete_button') Delete
+      a(href='/gallery/#{pic.id}/edit')
+        button(id='edit_button' class='button_styles') Edit
+      form(method='POST' action='/gallery/#{pic.id}/')
+        input(type="hidden" name="_method" value="DELETE")
+        input(id='delete_button' class='button_styles' type='submit', value='Delete' action='/')
 
   div.sidebar_div
     a(href='/gallery/#{pic1.id}')
       img(src='#{pic1.link}')
     a(href='/gallery/#{pic2.id}')
       img(src='#{pic2.link}')
+
+script(src="/lib/options_module.js" type='text/javascript')

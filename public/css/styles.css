@@ -326,7 +326,8 @@ body {
 
 .bio_desc {
   text-align: left;
-  margin-left: 16%; }
+  margin-left: 16%;
+  max-width: 70%; }
 
 #contact_head {
   margin-top: 2%;

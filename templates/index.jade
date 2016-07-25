@@ -1,16 +1,16 @@
 include ./header.jade
-div.big_pic_container
+.big_pic_container
   a(href='/gallery/4')
     img(src='#{main_pic.link}')
-div.line_separator
+.line_separator
 a(href='/gallery/new')
-  div.create_button New Post
+  .create_button New Post
 
-div.thumbnail_row_div
+.thumbnail_row_div
   each pic in pics
-    div.thumbnail
+    .thumbnail
       a(href='/gallery/#{pic.id}')
         img(class='thumb_img' src='#{pic.link}')
-      div.thumbnail_desc
+      .thumbnail_desc
         p #{pic.description}
 include ./footer.jade

@@ -33,10 +33,21 @@ Router.get('/', (req, res) => {
       pics: data,
       main_pic: data[1]
     });
+  })
+  .catch( _ => {
+    return res.render('404');
   });
 });
 Router.get('/gallery/new/', (req, res) => {
   return res.render('../templates/newPhotoForm');
+});
+
+Router.get('/gallery/vince', (req, res) => {
+  return res.render('vince');
+});
+
+Router.get('/gallery/matt', (req, res) => {
+  return res.render('matt');
 });
 
 Router.get('/gallery/:id', (req, res) => {
@@ -52,7 +63,7 @@ Router.get('/gallery/:id', (req, res) => {
     });
   })
   .catch ( err => {
-    return res.send({'success': false});
+    return res.render('404');
   });
 });
 
@@ -64,7 +75,7 @@ Router.get('/gallery/:id/edit', (req, res) => {
     });
   })
   .catch( err => {
-    return res.send({'success': false});
+    return res.render('404');
   });
 });
 
@@ -85,11 +96,11 @@ Router.put('/gallery/:id', (req, res) => {
       });
     })
     .catch( err => {
-      return res.send({'success': false});
+      return res.render('404');
     });
   })
   .catch( err => {
-    return res.send({'success': false});
+    return res.render('404');
   });
 });
 
@@ -105,13 +116,14 @@ Router.delete('/gallery/:id', (req, res) => {
       });
     })
     .catch( err => {
-      return res.send({'success': false});
+      return res.render('404');
     });
   })
   .catch( err => {
-    return res.send({'success': false});
+    return res.render('404');
   });
 });
+
 
 module.exports = Router;
 

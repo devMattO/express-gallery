@@ -1,0 +1,27 @@
+@import 'partials/reset';
+@import 'partials/clearfix';
+
+// @media screen and (max-width: 915px){
+// @media (min-device-width: 320px) and (max-device-width: 667px) and (orientation: portrait){
+
+#bs_text{
+  display: none;
+}
+.thumbnail_row_div{
+  display: block;
+}
+
+.thumb_img{
+    min-height: 100%;
+    max-height: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    border-radius: 5px;
+}
+.thumbnail{
+  width: 100%;
+}
+.architekt_header{
+  font-size: 2em;
+}
+//}

@@ -1,10 +1,16 @@
 const express = require('express');
 const app = express();
+/*****MIDDLEWARE********/
+const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
+/******DB MODULES*******/
 const db = require('./models');
 const Gallery = db.Gallery;
-const galleryRouter = require('./routes/galleryRouter');
-const methodOverride = require('method-override');
+/****ROUTER MIDDLEWARE******/
+const galleryRouter = require('./routes/gallery');
+
+app.set('view engine','jade');
+app.set('views', './templates');
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true}));
@@ -16,9 +22,6 @@ app.use(methodOverride(function(req, res){
     return method;
   }
 }));
-
-app.set('view engine','jade');
-app.set('views', './templates');
 
 app.use('/', galleryRouter);
 

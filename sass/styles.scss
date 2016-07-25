@@ -97,7 +97,6 @@ a{
   box-sizing: border-box;
 }
 .thumb_img{
-  // max-width: 100%;
   min-height: 17em;
   max-height: 17em;
   max-width: 100%;
@@ -374,7 +373,6 @@ body{
 
 @media screen and (min-device-width: 320px)
   and (max-device-width: 480px){
-// @media (min-device-width: 320px) and (max-device-width: 667px) and (orientation: portrait){
 
   #bs_text{
     display: none;

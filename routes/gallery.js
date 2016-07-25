@@ -29,7 +29,7 @@ Router.post('/gallery', (req, res) => {
 Router.get('/', (req, res) => {
   db.Gallery.findAll()
   .then ( (data) => {
-    return res.render('../templates', {
+    return res.render('gallery/', {
       pics: data,
       main_pic: data[1]
     });
@@ -39,7 +39,7 @@ Router.get('/', (req, res) => {
   });
 });
 Router.get('/gallery/new/', (req, res) => {
-  return res.render('../templates/newPhotoForm');
+  return res.render('gallery/new_photo');
 });
 
 Router.get('/gallery/vince', (req, res) => {
@@ -55,7 +55,7 @@ Router.get('/gallery/:id', (req, res) => {
   .then( (data) => {
     db.Gallery.findAll()
     .then( (allData) => {
-      return res.render('../templates/singlePhoto', {
+      return res.render('gallery/single_photo', {
         pic: data,
         pic1: allData[2],
         pic2: allData[1]
@@ -70,7 +70,7 @@ Router.get('/gallery/:id', (req, res) => {
 Router.get('/gallery/:id/edit', (req, res) => {
   db.Gallery.findById(req.params.id)
   .then( (data) => {
-    return res.render('../templates/editPhotoForm', {
+    return res.render('gallery/edit_photo', {
       pics: data.dataValues
     });
   })
@@ -110,7 +110,7 @@ Router.delete('/gallery/:id', (req, res) => {
     db.Gallery.findAll()
     .then((data) => {
       console.log(data.length);
-      return res.render('index', {
+      return res.render('gallery/', {
         pics: data,
         main_pic: data[1],
       });
@@ -124,9 +124,4 @@ Router.delete('/gallery/:id', (req, res) => {
   });
 });
 
-
 module.exports = Router;
-
-// /    return res.render('../templates/singlePhoto', {
-//       pics: data.dataValues
-//     });

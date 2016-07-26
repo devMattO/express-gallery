@@ -1,18 +1,24 @@
 extends ../layout.jade
 
 block content
+
   .single_pic_container
     .single_pic_div
       img(src='#{pic.link}')
-      .single_desc_div
-        img(id='cog_options' src='http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-business/076041-3d-transparent-glass-icon-business-gear8.png')
-        p #{pic.description}
-      .option_buttons
-        a(href='/gallery/#{pic.id}/edit')
-          button(id='edit_button' class='button_styles') Edit
-        form(method='POST' action='/gallery/#{pic.id}/')
-          input(type="hidden" name="_method" value="DELETE")
-          input(id='delete_button' class='button_styles' type='submit', value='Delete' action='/')
+      if UserId == GalleryId
+        .single_desc_div
+          img(id='cog_options' src='http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-business/076041-3d-transparent-glass-icon-business-gear8.png')
+          p #{pic.description}
+        .option_buttons
+          a(href='/gallery/#{pic.id}/edit')
+            button(id='edit_button' class='button_styles') Edit
+          form(method='POST' action='/gallery/#{pic.id}/')
+            input(type="hidden" name="_method" value="DELETE")
+            input(id='delete_button' class='button_styles' type='submit', value='Delete' action='/')
+      else
+        .singl_desc_div
+          p #{pic.description}
+
 
     .sidebar_div
       a(href='/gallery/#{pic1.id}')

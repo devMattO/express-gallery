@@ -4,11 +4,24 @@ const fs = require('fs');
 const db = require('../models');
 const passport = require('passport');
 
+function isAuthenticated (req, res, next){
+  if(!req.isAuthenticated()){
+    return res.redirect('/login');
+  }
+  return next();
+}
+
+Router.get('/logout', (req,res)=>{
+  req.logout();
+  res.redirect('/login');
+});
+
 Router.post('/gallery', (req, res) => {
   db.Gallery.create({
       author: req.body.author,
       link: req.body.link,
-      description: req.body.description
+      description: req.body.description,
+      UserId: req.user.id
     })
   .then ( _ => {
     db.Gallery.findAll()
@@ -32,14 +45,14 @@ Router.get('/', (req, res) => {
   .then ( (data) => {
     return res.render('gallery/', {
       pics: data,
-      main_pic: data[1]
+      main_pic: data[1],
     });
   })
   .catch( _ => {
     return res.render('404');
   });
 });
-Router.get('/gallery/new/', (req, res) => {
+Router.get('/gallery/new/', isAuthenticated, (req, res) => {
   return res.render('gallery/new_photo');
 });
 
@@ -56,10 +69,30 @@ Router.get('/gallery/:id', (req, res) => {
   .then( (data) => {
     db.Gallery.findAll()
     .then( (allData) => {
+      if(req.user.role == 'admin'){
+        return res.render('gallery/single_photo', {
+          pic: data,
+          pic1: allData[2],
+          pic2: allData[1],
+          UserId: true,
+          GalleryId: true
+        });
+      }
+      if(data.dataValues.UserId == undefined || req.user == undefined){
+        return res.render('gallery/single_photo', {
+          pic: data,
+          pic1: allData[2],
+          pic2: allData[1],
+          UserId: 'no',
+          GalleryId: false
+        });
+    }
       return res.render('gallery/single_photo', {
         pic: data,
         pic1: allData[2],
-        pic2: allData[1]
+        pic2: allData[1],
+        UserId: req.user.id,
+        GalleryId: data.dataValues.UserId
       });
     });
   })
@@ -91,6 +124,7 @@ Router.put('/gallery/:id', (req, res) => {
   .then( _ => {
     db.Gallery.findAll()
     .then((data) => {
+      console.log(data);
       return res.render('index', {
         pics: data,
         main_pic: data[1],
@@ -129,11 +163,6 @@ Router.get('/login', (req, res) => {
   return res.render('login');
 });
 
-// Router.post('/login',
-//   passport.authenticate('local', {
-//     successRedirect: '/',
-//     failureRedirect: '/login'
-//   }));
 
 Router.get('/new_user', (req, res) => {
   return res.render('new_user');
@@ -160,4 +189,5 @@ Router.post('/new_user', (req, res) => {
     return res.send({'success': false});
   });
 });
+
 module.exports = Router;

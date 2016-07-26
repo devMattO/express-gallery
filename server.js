@@ -73,3 +73,10 @@ app.use('/', galleryRouter);
 app.listen(3000, function() {
   db.sequelize.sync();
 });
+
+const isAuthenticated = (req, res, next) => {
+  if(!req.isAuthenticated){
+    return res.redirect('/login');
+  }
+  return next();
+};

@@ -122,9 +122,9 @@ a {
   padding-top: 5px;
   padding-bottom: 5px;
   width: 10%;
-  margin-top: 2%;
-  margin-left: 45%;
-  margin-right: 45%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 10%;
   background: #777;
   border: 1px solid #0a5378;
   border-radius: 4px;
@@ -140,7 +140,7 @@ a {
   margin-left: 9%;
   margin-right: 6%;
   flex-wrap: wrap;
-  margin-top: 5%;
+  margin-top: 1%;
   align-content: center;
   justify-content: space-around;
   box-sizing: border-box; }
@@ -306,23 +306,27 @@ a {
     margin-top: 1%;
     margin-bottom: 2%; }
     .footer_div .vince_footer a {
-      text-decoration: none; }
+      text-decoration: none;
+      color: #777; }
   .footer_div .matt_footer {
     float: right;
     margin-top: 1%;
     margin-bottom: 2%; }
     .footer_div .matt_footer a {
-      text-decoration: none; }
+      text-decoration: none;
+      color: #777; }
 
 body {
   color: #777;
-  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; }
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  background-image: url("../subtle_white_mini_waves.png"); }
 
 #bio_head {
   text-align: left;
   margin-left: 16%;
   font-size: 30px;
-  margin-top: 2%; }
+  margin-top: 2%;
+  color: #777; }
 
 .bio_desc {
   text-align: left;
@@ -333,12 +337,16 @@ body {
   margin-top: 2%;
   text-align: left;
   margin-left: 16%;
-  font-size: 30px; }
+  font-size: 30px;
+  color: #777; }
 
 .contact_desc {
   text-align: left;
   margin-left: 16%;
   margin-bottom: 5%; }
+  .contact_desc a {
+    text-decoration: none;
+    color: #777; }
 
 .404 {
   font-size: 10em; }
@@ -374,12 +382,13 @@ body {
     display: none; }
   .thumbnail_row_div {
     display: block;
-    margin-left: 12%; }
-  .thumb_img {
-    min-height: 90%;
-    max-height: 90%;
-    max-width: 90%;
-    min-width: 90%; }
+    margin-left: 12%;
+    max-height: 550px; }
+    .thumbnail_row_div .thumb_img {
+      min-height: 90%;
+      max-height: 90%;
+      max-width: 90%;
+      min-width: 90%; }
   .thumbnail {
     width: 100%; }
   #architekt_header {

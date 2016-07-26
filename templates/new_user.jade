@@ -1,0 +1,8 @@
+extends ./layout.jade
+
+block content
+  h1 _NEW USER
+    form(action='/new_user' method='POST')
+      input(type='text' name='username')
+      input(type='password' name='password')
+      button(type='submit') Let's Go!

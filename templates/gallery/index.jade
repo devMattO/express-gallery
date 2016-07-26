@@ -5,8 +5,8 @@ block content
     a(href='/gallery/4')
       img(src='#{main_pic.link}')
   .line_separator
-  a(href='/gallery/new')
-    .create_button New Post
+    a(class ='create_a' href='/gallery/new')
+      .create_button New Post
 
   .thumbnail_row_div
     each pic in pics

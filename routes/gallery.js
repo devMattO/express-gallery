@@ -2,6 +2,7 @@ const Express = require('express');
 const Router = Express.Router();
 const fs = require('fs');
 const db = require('../models');
+const passport = require('passport');
 
 Router.post('/gallery', (req, res) => {
   db.Gallery.create({
@@ -12,7 +13,7 @@ Router.post('/gallery', (req, res) => {
   .then ( _ => {
     db.Gallery.findAll()
     .then((data) => {
-      return res.render('index', {
+      return res.render('gallery/index', {
         pics: data,
         main_pic: data[1]
       });
@@ -124,4 +125,39 @@ Router.delete('/gallery/:id', (req, res) => {
   });
 });
 
+Router.get('/login', (req, res) => {
+  return res.render('login');
+});
+
+// Router.post('/login',
+//   passport.authenticate('local', {
+//     successRedirect: '/',
+//     failureRedirect: '/login'
+//   }));
+
+Router.get('/new_user', (req, res) => {
+  return res.render('new_user');
+});
+
+Router.post('/new_user', (req, res) => {
+  db.User.create({
+      username: req.body.username,
+      password: req.body.password,
+    })
+  .then ( _ => {
+    db.Gallery.findAll()
+    .then((data) => {
+      return res.render('gallery/index', {
+        pics: data,
+        main_pic: data[1]
+      });
+    })
+    .catch( err => {
+      return res.send({'success': false});
+    });
+  })
+  .catch( err => {
+    return res.send({'success': false});
+  });
+});
 module.exports = Router;

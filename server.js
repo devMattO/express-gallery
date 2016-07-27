@@ -3,6 +3,7 @@ const app = express();
 /*****MIDDLEWARE********/
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
 /******DB MODULES*******/
 const db = require('./models');
 const Gallery = db.Gallery;
@@ -10,6 +11,7 @@ const User = db.User;
 const CONFIG = require('./config/config.json');
 /****ROUTER MIDDLEWARE******/
 const galleryRouter = require('./routes/gallery');
+const userRouter = require('./routes/user');
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -39,13 +41,16 @@ passport.use(new LocalStrategy(
   function(username, password, done) {
     User.findOne({ where:{username: username}  })
     .then( user => {
-      if(user == null){
+      bcrypt.compare(password, user.password, (err, res) => {
+        if(res){
+          if(user.username === username){
+            return done(null, user);
+          } else{
+            return done(null, false);
+          }
+        }
         return done(null, false);
-      }
-      if(user.username === username && user.password === password){
-        return done(null, user);
-      }
-      return done(null, false);
+      });
     })
     .catch( err => {
      return done(err);
@@ -66,6 +71,7 @@ app.post('/login',
     successRedirect: '/',
     failureRedirect: '/login'
   }));
+
 
 app.use('/', galleryRouter);
 

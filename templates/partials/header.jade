@@ -1,3 +1,18 @@
+if logged_in
+  .user_header
+    p.guest_message Hi! Welcome back, #{user.username}
+    a(class='my_posts_link' href='/user/:id/gallery')
+      .my_posts_button My Posts
+    a(class='logout_link' href='/logout')
+      .logout_button Logout
+else
+  .user_header
+    p.guest_message Welcome!
+    a(class ='login_link' href='/login')
+      .log_in_button Log-In
+    a(class='register_link' href='/new_user')
+      .register_button Register
+
 .header_div
   .architekt_div
     a(href='/')

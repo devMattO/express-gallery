@@ -19,7 +19,7 @@ Router.get('/logout', (req,res)=>{
   res.redirect('/');
 });
 
-Router.post('/gallery', (req, res) => {
+Router.post('/', (req, res) => {
   db.Gallery.create({
       author: req.body.author,
       link: req.body.link,
@@ -43,20 +43,21 @@ Router.post('/gallery', (req, res) => {
   });
 });
 
+
 Router.get('/', (req, res) => {
   db.Gallery.findAll()
   .then ( (data) => {
     if(req.user !== undefined){
       return res.render('gallery/', {
         pics: data,
-        main_pic: data[1],
+        main_pic: data[0],
         logged_in: true,
         user: req.user,
       });
     } else {
       return res.render('gallery/', {
         pics: data,
-        main_pic: data[1],
+        main_pic: data[0],
         logged_in: false
       });
     }
@@ -65,19 +66,19 @@ Router.get('/', (req, res) => {
     return res.render('404');
   });
 });
-Router.get('/gallery/new/', isAuthenticated, (req, res) => {
+Router.get('/new/', isAuthenticated, (req, res) => {
   return res.render('gallery/new_photo');
 });
 
-Router.get('/gallery/vince', (req, res) => {
+Router.get('/vince', (req, res) => {
   return res.render('vince');
 });
 
-Router.get('/gallery/matt', (req, res) => {
+Router.get('/matt', (req, res) => {
   return res.render('matt');
 });
 
-Router.get('/gallery/:id', (req, res) => {
+Router.get('/:id', (req, res) => {
   db.Gallery.findById(req.params.id)
   .then( (data) => {
     db.Gallery.findAll()
@@ -118,7 +119,7 @@ Router.get('/gallery/:id', (req, res) => {
   });
 });
 
-Router.get('/gallery/:id/edit', (req, res) => {
+Router.get('/:id/edit', (req, res) => {
   db.Gallery.findById(req.params.id)
   .then( (data) => {
     return res.render('gallery/edit_photo', {
@@ -130,7 +131,7 @@ Router.get('/gallery/:id/edit', (req, res) => {
   });
 });
 
-Router.put('/gallery/:id', (req, res) => {
+Router.put('/:id', (req, res) => {
   db.Gallery.update({
     author: req.body.author,
     link: req.body.link,
@@ -142,7 +143,7 @@ Router.put('/gallery/:id', (req, res) => {
     db.Gallery.findAll()
     .then((data) => {
       console.log(data);
-      return res.render('index', {
+      return res.render('gallery/index', {
         pics: data,
         main_pic: data[1],
       });
@@ -156,7 +157,7 @@ Router.put('/gallery/:id', (req, res) => {
   });
 });
 
-Router.delete('/gallery/:id', (req, res) => {
+Router.delete('/:id', (req, res) => {
   db.Gallery.destroy({ where: { id: req.params.id } })
   .then( _ => {
     db.Gallery.findAll()
@@ -176,41 +177,4 @@ Router.delete('/gallery/:id', (req, res) => {
   });
 });
 
-Router.get('/login', (req, res) => {
-  return res.render('login');
-});
-
-
-Router.get('/new_user', (req, res) => {
-  return res.render('new_user');
-});
-
-Router.post('/new_user', (req, res) => {
-  let hashPassword = '';
-  bcrypt.genSalt(saltRounds, (err, salt) => {
-    bcrypt.hash(req.body.password, salt, (err, hash) => {
-    db.User.create({
-        username: req.body.username,
-        password: hash,
-      })
-    .then ( _ => {
-      db.Gallery.findAll()
-      .then((data) => {
-        return res.render('gallery/index', {
-          pics: data,
-          main_pic: data[1]
-        });
-      })
-      .catch( err => {
-        return res.send({'success': false});
-      });
-    })
-    .catch( err => {
-      return res.send({'success': false});
-    });
-  });
-    });
-  });
-
 module.exports = Router;
-

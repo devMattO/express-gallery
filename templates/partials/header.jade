@@ -3,14 +3,14 @@ if logged_in
     p.guest_message Hi! Welcome back, #{user.username}
     a(class='my_posts_link' href='/user/:id/gallery')
       .my_posts_button My Posts
-    a(class='logout_link' href='/logout')
+    a(class='logout_link' href='user/logout')
       .logout_button Logout
 else
   .user_header
     p.guest_message Welcome!
-    a(class ='login_link' href='/login')
+    a(class ='login_link' href='user/login')
       .log_in_button Log-In
-    a(class='register_link' href='/new_user')
+    a(class='register_link' href='user/new_user')
       .register_button Register
 
 .header_div

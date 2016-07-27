@@ -66,14 +66,17 @@ passport.deserializeUser((user, done)=>{
   return done(null, user);
 });
 
-app.post('/login',
+app.post('/user/login',
   passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/login'
+    failureRedirect: '/user/login'
   }));
 
-
-app.use('/', galleryRouter);
+app.get('/', (req, res) => {
+  res.redirect('/gallery');
+});
+app.use('/gallery', galleryRouter);
+app.use('/user', userRouter);
 
 
 app.listen(3000, function() {

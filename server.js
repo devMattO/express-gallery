@@ -8,10 +8,11 @@ const bcrypt = require('bcrypt');
 const db = require('./models');
 const Gallery = db.Gallery;
 const User = db.User;
+let CONFIG;
 try{
-  const CONFIG = require('./config/config.json');
+  CONFIG = require('./config/config.json');
 }catch(e){
-  const CONFIG = false;
+  CONFIG = false;
 }
 /****ROUTER MIDDLEWARE******/
 const galleryRouter = require('./routes/gallery');

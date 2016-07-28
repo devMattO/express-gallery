@@ -9,7 +9,7 @@ var env       = process.env.NODE_ENV || 'development';
 var db        = {};
 
 if(env === 'production'){
-  console.log(process.env.NODE_ENV);
+  console.log(process.env);
 } else {
   var config    = require(__dirname + '/../config/config.json')[env];
 }

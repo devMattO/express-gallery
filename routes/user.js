@@ -21,7 +21,6 @@ Router.get('/new_user', (req, res) => {
 });
 
 Router.post('/new_user', (req, res) => {
-  let hashPassword = '';
   bcrypt.genSalt(saltRounds, (err, salt) => {
     bcrypt.hash(req.body.password, salt, (err, hash) => {
     db.User.create({

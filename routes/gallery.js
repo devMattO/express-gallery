@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 
 function isAuthenticated (req, res, next){
   if(!req.isAuthenticated()){
-    return res.redirect('/login');
+    return res.redirect('/user/login');
   }
   return next();
 }
@@ -27,16 +27,7 @@ Router.post('/', (req, res) => {
       UserId: req.user.id
     })
   .then ( _ => {
-    db.Gallery.findAll()
-    .then((data) => {
-      return res.render('gallery/index', {
-        pics: data,
-        main_pic: data[1]
-      });
-    })
-    .catch( err => {
-      return res.send({'success': false});
-    });
+    return res.redirect('/');
   })
   .catch( err => {
     return res.send({'success': false});
@@ -140,17 +131,7 @@ Router.put('/:id', (req, res) => {
     where: {id: req.params.id}
   })
   .then( _ => {
-    db.Gallery.findAll()
-    .then((data) => {
-      console.log(data);
-      return res.render('gallery/index', {
-        pics: data,
-        main_pic: data[1],
-      });
-    })
-    .catch( err => {
-      return res.render('404');
-    });
+    return res.redirect('/');
   })
   .catch( err => {
     return res.render('404');
@@ -160,17 +141,7 @@ Router.put('/:id', (req, res) => {
 Router.delete('/:id', (req, res) => {
   db.Gallery.destroy({ where: { id: req.params.id } })
   .then( _ => {
-    db.Gallery.findAll()
-    .then((data) => {
-      console.log(data.length);
-      return res.render('gallery/', {
-        pics: data,
-        main_pic: data[1],
-      });
-    })
-    .catch( err => {
-      return res.render('404');
-    });
+    return res.redirect('/');
   })
   .catch( err => {
     return res.render('404');

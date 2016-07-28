@@ -1,8 +1,17 @@
-extends ./layout.jade
+<!DOCTYPE html>
+html(lang="en")
+head
+  link(href='/css/styles.css' rel='stylesheet')
+  meta(charset="UTF-8")
+  title Document
+body
 
-block content
-  h1 _NEW USER
-    form(action='/user/new_user' method='POST')
-      input(type='text' name='username')
-      input(type='password' name='password')
-      button(type='submit') Let's Go!
+.form_container
+  h1 _Register
+    form(method="post" action="/user/new_user")
+      span.label Username
+        input(type='text' name='username' placeholder="Username")
+      span.label Password
+        input(type='password' name='password' placeholder="Password")
+      .actions
+        input(type='submit' value="Log In")

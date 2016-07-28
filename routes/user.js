@@ -10,6 +10,7 @@ Router.get('/logout', (req,res)=>{
   req.logout();
   res.redirect('/');
 });
+
 Router.get('/login', (req, res) => {
   return res.render('login');
 });
@@ -28,22 +29,36 @@ Router.post('/new_user', (req, res) => {
         password: hash,
       })
     .then ( _ => {
-      db.Gallery.findAll()
-      .then((data) => {
-        return res.render('gallery/index', {
-          pics: data,
-          main_pic: data[1]
-        });
-      })
-      .catch( err => {
-        return res.send({'success': false});
-      });
+      return res.redirect('/');
     })
     .catch( err => {
       return res.send({'success': false});
+      });
     });
   });
+});
+
+Router.get('/:id/gallery', (req, res) => {
+  db.Gallery.findAll({
+    where : {
+      UserId: req.params.id
+    }
+  })
+  .then( data => {
+    if(!data.length){
+      return res.render('user/user_gallery',{
+        no_pics: true,
+        logged_in: true,
+        user: req.user
+      });
+    }
+    return res.render('user/user_gallery', {
+      pics: data,
+      logged_in: true,
+      user: req.user,
+      no_pics: false
     });
   });
+});
 
 module.exports = Router;

@@ -1,0 +1,16 @@
+extends ../layout.jade
+
+block content
+  if no_pics
+    p.no_pics You don't have any posts yet.
+      a(class ='create_a' href='/gallery/new')
+        .create_button.no_pic_new_post Create one?
+
+  else
+    .thumbnail_row_div.user_thumbnail_row
+      each pic in pics
+        .thumbnail
+          a(href='/gallery/#{pic.id}')
+            img(class='thumb_img' src='#{pic.link}')
+          .thumbnail_desc
+            p #{pic.description}

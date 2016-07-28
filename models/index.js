@@ -15,7 +15,7 @@ if(env === 'production'){
     password: process.env.password,
     port: process.env.port,
     dialect: process.env.dialect,
-    host: process.env.host
+    host: process.env.host,
   };
 } else {
   var config    = require(__dirname + '/../config/config.json')[env];

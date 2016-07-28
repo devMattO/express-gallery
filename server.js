@@ -11,7 +11,7 @@ const User = db.User;
 try{
   const CONFIG = require('./config/config.json');
 }catch(e){
-  console.log(process.ENV);
+  const CONFIG = false;
 }
 /****ROUTER MIDDLEWARE******/
 const galleryRouter = require('./routes/gallery');
@@ -35,7 +35,7 @@ app.use(methodOverride(function(req, res){
   }
 }));
 app.use(session({
-  secret: CONFIG.SECRET,
+  secret: CONFIG.SECRET || process.env.secret,
   saveUnitialized: true,
 }));
 app.use(passport.initialize());

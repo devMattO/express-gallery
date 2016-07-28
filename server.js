@@ -8,7 +8,11 @@ const bcrypt = require('bcrypt');
 const db = require('./models');
 const Gallery = db.Gallery;
 const User = db.User;
-const CONFIG = require('./config/config.json') || {};
+try{
+  const CONFIG = require('./config/config.json');
+}catch(e){
+  console.log(process.ENV);
+}
 /****ROUTER MIDDLEWARE******/
 const galleryRouter = require('./routes/gallery');
 const userRouter = require('./routes/user');

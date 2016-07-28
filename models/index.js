@@ -9,7 +9,14 @@ var env       = process.env.NODE_ENV || 'development';
 var db        = {};
 
 if(env === 'production'){
-  console.log(process.env);
+  var config = {
+    username: process.env.username,
+    database: process.env.database,
+    password: process.env.password,
+    port: process.env.port,
+    dialect: process.env.dialect,
+    host: process.env.host
+  };
 } else {
   var config    = require(__dirname + '/../config/config.json')[env];
 }

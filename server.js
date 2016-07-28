@@ -84,8 +84,8 @@ app.get('/', (req, res) => {
 app.use('/gallery', galleryRouter);
 app.use('/user', userRouter);
 
-
-app.listen(3000, function() {
+let port = process.env.$PORT || 3000;
+app.listen(port, function() {
   db.sequelize.sync();
 });
 

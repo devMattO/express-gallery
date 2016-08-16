@@ -1,21 +1,31 @@
-'use strict';
 const express = require('express');
+
 const app = express();
-/*****MIDDLEWARE********/
+
+/**
+***MIDDLEWARE******
+**/
+
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-/******DB MODULES*******/
+
+/**
+****DB MODULES*****
+**/
+
 const db = require('./models');
-const Gallery = db.Gallery;
+
 const User = db.User;
 let CONFIG;
 try {
   CONFIG = require('./config/config.json');
-} catch (e){
+} catch (e) {
   CONFIG = false;
 }
-/****ROUTER MIDDLEWARE******/
+/*
+***ROUTER MIDDLEWARE*****
+*/
 const galleryRouter = require('./routes/gallery');
 const userRouter = require('./routes/user');
 
@@ -35,6 +45,7 @@ app.use(methodOverride((req) => {
     delete req.body._method;
     return method;
   }
+  return false;
 }));
 app.use(session({
   secret: CONFIG.SECRET || process.env.secret,
@@ -51,16 +62,13 @@ passport.use(new LocalStrategy(
         if (res) {
           if (user.username === username) {
             return done(null, user);
-          } else {
-            return done(null, false);
           }
+          return done(null, false);
         }
         return done(null, false);
       });
     })
-    .catch(err => {
-      return done(err);
-    });
+    .catch(err => done(err));
   }
 ));
 

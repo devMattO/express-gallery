@@ -1,21 +1,31 @@
-'use strict';
 const express = require('express');
+
 const app = express();
-/*****MIDDLEWARE********/
+
+/**
+***MIDDLEWARE******
+**/
+
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-/******DB MODULES*******/
+
+/**
+****DB MODULES*****
+**/
+
 const db = require('./models');
-const Gallery = db.Gallery;
+
 const User = db.User;
 let CONFIG;
-try{
+try {
   CONFIG = require('./config/config.json');
-}catch(e){
+} catch (e) {
   CONFIG = false;
 }
-/****ROUTER MIDDLEWARE******/
+/*
+***ROUTER MIDDLEWARE*****
+*/
 const galleryRouter = require('./routes/gallery');
 const userRouter = require('./routes/user');
 
@@ -23,18 +33,19 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 
-app.set('view engine','jade');
+app.set('view engine', 'jade');
 app.set('views', './templates');
 
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(methodOverride(function(req, res){
+app.use(methodOverride((req) => {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
-    var method = req.body._method;
+    const method = req.body._method;
     delete req.body._method;
     return method;
   }
+  return false;
 }));
 app.use(session({
   secret: CONFIG.SECRET || process.env.secret,
@@ -44,38 +55,31 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ where:{username: username}  })
-    .then( user => {
+  (username, password, done) => {
+    User.findOne({ where: { username } })
+    .then(user => {
       bcrypt.compare(password, user.password, (err, res) => {
-        if(res){
-          if(user.username === username){
+        if (res) {
+          if (user.username === username) {
             return done(null, user);
-          } else{
-            return done(null, false);
           }
+          return done(null, false);
         }
         return done(null, false);
       });
     })
-    .catch( err => {
-     return done(err);
-    });
+    .catch(err => done(err));
   }
 ));
 
-passport.serializeUser((user, done)=>{
-  return done(null, user);
-});
+passport.serializeUser((user, done) => done(null, user));
 
-passport.deserializeUser((user, done)=>{
-  return done(null, user);
-});
+passport.deserializeUser((user, done) => done(null, user));
 
 app.post('/user/login',
   passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/user/login'
+    failureRedirect: '/user/login',
   }));
 
 app.get('/', (req, res) => {
@@ -84,13 +88,13 @@ app.get('/', (req, res) => {
 app.use('/gallery', galleryRouter);
 app.use('/user', userRouter);
 
-let port = process.env.PORT || 3000;
-app.listen(port, function() {
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
   db.sequelize.sync();
 });
 
 const isAuthenticated = (req, res, next) => {
-  if(!req.isAuthenticated){
+  if (!req.isAuthenticated) {
     return res.redirect('/login');
   }
   return next();
